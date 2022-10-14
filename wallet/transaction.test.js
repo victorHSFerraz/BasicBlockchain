@@ -22,4 +22,15 @@ describe("Transaction", () => {
       transaction.outputs.find((output) => output.address == recipient).amount
     ).toEqual(amount);
   });
+
+  describe("transaction that exceeds the balance", () => {
+    beforeEach(() => {
+      amount = 500000;
+      transaction = Transaction.newTransaction(wallet, recipient, amount);
+    });
+
+    it("does not create the transaction", () => {
+      expect(transaction).toEqual(undefined);
+    });
+  });
 });
